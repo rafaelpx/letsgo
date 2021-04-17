@@ -1,14 +1,26 @@
-package greetings
+package main
 
 import "testing"
 
 func TestHello(t *testing.T) {
-	t.Run("greets GoCon", func(t *testing.T) {
-		got := Hello("GoCon")
-		expected := "Hello GoCon!"
-
+	assertCorrectMessage := func(t testing.TB, got, expected string) {
+		t.Helper()
 		if got != expected {
-			t.Errorf("Got: %s, Expected: %s", got, expected)
+			t.Errorf("got %q want %q", got, expected)
 		}
+	}
+
+	t.Run("saying hello to people", func(t *testing.T) {
+		got := Hello("Rafa")
+		expected := "Hello, Rafa"
+
+		assertCorrectMessage(t, got, expected)
+	})
+
+	t.Run("say 'Hello, World' when an empty string is supplied", func(t *testing.T) {
+		got := Hello("")
+		expected := "Hello, World"
+
+		assertCorrectMessage(t, got, expected)
 	})
 }
